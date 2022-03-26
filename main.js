@@ -1,7 +1,3 @@
-window.addEventListener("load", async () => {
-    document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
-})
-
 function saveIssue(e) {
     var issueId = chance.guid();
     var issueDesc = document.getElementById('issueDescInput').value;
@@ -9,26 +5,26 @@ function saveIssue(e) {
     var issueAssignedTo = document.getElementById('issueAssignedToInput').value;
     var issueStatus = 'Open';
     var issue = {
-        id: issueId,
-        description: issueDesc,
-        severity: issueSeverity,
-        assignedTo: issueAssignedTo,
-        status: issueStatus
+      id: issueId,
+      description: issueDesc,
+      severity: issueSeverity,
+      assignedTo: issueAssignedTo,
+      status: issueStatus
     }
-
+    
     if (localStorage.getItem('issues') === null) {
-        var issues = [];
-        issues.push(issue);
-        localStorage.setItem('issues', JSON.stringify(issues));
+      var issues = [];
+      issues.push(issue);
+      localStorage.setItem('issues', JSON.stringify(issues));
     } else {
-        var issues = JSON.parse(localStorage.getItem('issues'));
-        issues.push(issue);
-        localStorage.setItem('issues', JSON.stringify(issues));
+      var issues = JSON.parse(localStorage.getItem('issues'));
+      issues.push(issue);
+      localStorage.setItem('issues', JSON.stringify(issues));
     }
-
-    document.getElementById('issueInputForm').reset();
-
+    
+    document.getElementById('issueInputForm').addEventListener('submit', saveIssue);  
+   
     fetchIssues();
-
-    e.preventDefault();
-}
+    
+    e.preventDefault();     
+  }
